@@ -31,12 +31,12 @@
     <script src="js/axios.min.js"></script>
 
     <script>
-        getList()
+        
         async function getList() {
             let URL="https://crud.teamrabbil.com/api/v1/ReadProduct"
             let res=await axios.get(URL)
             let list=res.data['data']
-
+            
             list.forEach((item)=>{
                 document.getElementById('itemList').innerHTML+=(`<tr>
                         <td>${item['ProductName']}</td>
@@ -44,11 +44,22 @@
                         <td>${item['UnitPrice']}</td>
                         <td>${item['Qty']}</td>
                         <td>${item['TotalPrice']}</td>
-                        <td></td>
-                        <td></td>
+                        <td><button onclick="deleteItem('$item['_id']')">Delete</button></td>
+                        <td><button>Submit</button></td>
                     </tr>`)
             })
         }
+        getList();
+
+
+        async function deleteItem(id) {
+          let URL = `https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}`  
+          await axios.get(URL);
+          window.location.reload();
+        }
+
+
+
     </script>
 
     
